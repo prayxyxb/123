@@ -1,0 +1,20 @@
+# -*- coding: utf-8 -*-
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
+from time import sleep
+from selenium.webdriver.common.keys import Keys
+import pandas as pd
+import numpy as np
+import random 
+import datetime   
+import requests
+import schedule
+
+wd = webdriver.Chrome()
+wd.implicitly_wait(10)
+wd.get('https://www.tianqi.com/tiantai/30/')
+
+elementweather = wd.find_element(By.XPATH, "/html/body/div[7]/div[2]/div[2]/div/div[1]")
+shuchu=str(elementweather.text)
+requests.get('http://wxpusher.zjiecode.com/api/send/message/?appToken=AT_4hYBcXynUY9q5sC62vs7YJQ0t3NpLW7n&uid=UID_Fw3oCiTD803hxN2H11vblGlIyigH&summary="weather"&content='+str(shuchu))
